@@ -9,4 +9,3 @@
 PranavU-Coder/PranavU-Coder is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 You can click the Preview link to take a look at your changes.
 --->
-![Holopin Badge]((https://holopin.io/@pranavucoder)
