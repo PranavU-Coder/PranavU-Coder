@@ -10,3 +10,5 @@ PranavU-Coder/PranavU-Coder is a ✨ special ✨ repository because its `README.
 You can click the Preview link to take a look at your changes.
 --->
 [![An image of @pranavucoder's Holopin badges, which is a link to view their full Holopin profile](https://holopin.me/pranavucoder)](https://holopin.io/@pranavucoder)
+![Your GitHub Stats](https://github-readme-stats.vercel.app/api?username=PranavU-Coder&show_icons=true&theme=radical)
+
