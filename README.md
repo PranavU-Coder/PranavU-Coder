@@ -1,24 +1,33 @@
-- 👋 Hi, I'm Pranav Unni
-- 👀 I’m interested in Programming
-- 🌱 I’m currently learning python (mostly)
-- 💞️ I’m looking to collaborate on Discord/Reddit or bsky.social if you're there
-- 📫 How to reach me : reddit handle -> https://www.reddit.com/user/CrazySteroids69/ , discord handle -> 1063397323473961032 (discord id) , name - crazy_steroids69 , bsky : https://bsky.app/profile/king-pranav.bsky.social
-- 😄 Pronouns: him
-- ⚡ Fun fact: The more I learn , the more I realize I don't know jackshit
-<!---
-PranavU-Coder/PranavU-Coder is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-You can click the Preview link to take a look at your changes.
---->
-[![An image of @pranavucoder's Holopin badges, which is a link to view their full Holopin profile](https://holopin.me/pranavucoder)](https://holopin.io/@pranavucoder)
-![Your GitHub Stats](https://github-readme-stats.vercel.app/api?username=PranavU-Coder&show_icons=true&theme=radical)
+<!-- Introduction Section -->
+* 👋 Hi, I'm Pranav Unni
+* 👀 I'm interested in Programming
+* 🌱 I'm currently learning python (mostly)
+* 💞️ I'm looking to collaborate on Discord/Reddit or bsky.social if you're there
+* 📫 How to reach me : reddit handle -> https://www.reddit.com/user/CrazySteroids69/ , discord handle -> 1063397323473961032 (discord id) , name - crazy_steroids69 , bsky : https://bsky.app/profile/king-pranav.bsky.social
+* 😊 Pronouns: him
+* ⚡ Fun fact: The more I learn , the more I realize I don't know jackshit
+
+<!-- Profile Banner with Logo -->
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=PranavU-Coder&show_icons=true&theme=tokyonight" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=PranavU-Coder&layout=compact&theme=tokyonight" />
+  <img src="https://your-custom-banner-url-here.png" alt="Profile Banner" />
+  <a href="https://holopin.io/@pranavucoder">
+    <img src="https://holopin.io/@pranavucoder/badges" alt="Holopin Badges" />
+  </a>
 </div>
 
-
-
-![Static Badge](https://img.shields.io/badge/Python-61DBFB?style=for-the-badge&logo=python&logoColor=yellow&color=purple)
-![Static Badge](https://img.shields.io/badge/C-61DBFB?style=for-the-badge&logo=C&logoColor=yellow&color=purple)
-![Static Badge](https://img.shields.io/badge/C%2B%2B-61DBFB?style=for-the-badge&logo=C%2B%2B&logoColor=yellow&color=purple)
-![Static Badge](https://img.shields.io/badge/Node.JS-61DBFB?style=for-the-badge&logo=node.js&logoColor=yellow&color=purple)
+<!-- GitHub Stats Section -->
+<div align="center">
+  <h3>Pranav's GitHub Stats</h3>
+  
+  <!-- GitHub Stats and Language Cards in a row -->
+  <img src="https://github-readme-stats.vercel.app/api?username=pranavucoder&show_icons=true&theme=radical&title_color=ff3068" height="170" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=pranavucoder&layout=compact&theme=radical&title_color=ff3068" height="170" />
+  
+  <!-- Language Badges -->
+  <div>
+    <img src="https://img.shields.io/badge/PYTHON-8A2BE2?style=for-the-badge&logo=python&logoColor=white" />
+    <img src="https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white" />
+    <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" />
+    <img src="https://img.shields.io/badge/NODE.JS-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />
+  </div>
+</div>
