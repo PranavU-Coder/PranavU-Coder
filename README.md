@@ -10,8 +10,8 @@
 <!-- Profile Banner with Logo -->
 <div align="center">
   <img src="https://your-custom-banner-url-here.png" alt="Profile Banner" />
-  <a href="https://holopin.io/@pranavucoder">
-    <img src="https://holopin.io/@pranavucoder/badges" alt="Holopin Badges" />
+  <a href="https://holopin.io/@PranavU-Coder">
+    <img src="https://holopin.io/@PranavU-Coder/badges" alt="Holopin Badges" />
   </a>
 </div>
 
@@ -20,8 +20,8 @@
   <h3>Pranav's GitHub Stats</h3>
   
   <!-- GitHub Stats and Language Cards in a row -->
-  <img src="https://github-readme-stats.vercel.app/api?username=pranavucoder&show_icons=true&theme=radical&title_color=ff3068" height="170" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=pranavucoder&layout=compact&theme=radical&title_color=ff3068" height="170" />
+  <img src="https://github-readme-stats.vercel.app/api?username=PranavU-Coder&show_icons=true&theme=radical&title_color=ff3068" height="170" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=PranavU-Coder&layout=compact&theme=radical&title_color=ff3068" height="170" />
   
   <!-- Language Badges -->
   <div>
