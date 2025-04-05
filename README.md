@@ -7,7 +7,7 @@
 * 😊 Pronouns: him
 * ⚡ Fun fact: The more I learn , the more I realize I don't know jackshit
 
-[![spotify-github-profile](https://spotify-github-profile.vercel.app/api/view?uid=integratedmonkey&cover_image=true&theme=default&show_offline=false)](https://github.com/kittinan/spotify-github-profile)
+[![spotify-github-profile](https://spotify-github-profile.vercel.app/api/view?uid=mqjed7g2siu9wjiduwm2iw8do&cover_image=true&theme=default&show_offline=false)](https://github.com/kittinan/spotify-github-profile)
 
 
 <!-- Profile Banner with Logo -->
