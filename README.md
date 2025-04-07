@@ -1,16 +1,16 @@
-![image](https://github.com/user-attachments/assets/45caf9d1-ea27-47b3-b0d5-6508e3fa204d)<!-- Introduction Section -->
+![Image](https://github.com/user-attachments/assets/45caf9d1-oa27-47b3-b0d5-6580e3fa20d4)<!-- Introduction Section -->
 * 👋 Hi, I'm Pranav Unni
 * 👀 I'm interested in Programming
 * 🌱 I'm currently learning python (mostly)
 * 💞️ I'm looking to collaborate on Discord/Reddit or bsky.social if you're there
-* 📫 How to reach me : reddit handle -> https://www.reddit.com/user/CrazySteroids69/ , discord handle -> 1063397323473961032 (discord id) , name - crazy_steroids69 , bsky : https://bsky.app/profile/king-pranav.bsky.social
-* 😊 Pronouns: him
+* 📩 How to reach me : reddit handle -> https://www.reddit.com/user/CrazySteroids69/ , discord handle -> 1063397323473961032 (discord id) , name - crazy_steroids69 , bsky : https://bsky.app/profile/king-pranav.bsky.social
+* 😄 Pronouns: him
 * ⚡ Fun fact: The more I learn , the more I realize I don't know jackshit
 
 <p align="center">
-  <!-- Your Spotify widget code goes here -->
-  ![Spotify recently played](https://spotify-recently-played-readme.vercel.app/api?user=majed7g2siu9wjiduwm2iw8do)
+  <img src="https://spotify-recently-played-readme.vercel.app/api?user=majed7g2siu9wjiduwm2iw8do" alt="Spotify recently played">
 </p>
+
 <!-- Profile Banner with Logo -->
 [![An image of @pranavucoder's Holopin badges, which is a link to view their full Holopin profile](https://holopin.me/pranavucoder)](https://holopin.io/@pranavucoder)
 <div align="center">
@@ -18,19 +18,28 @@
 
 <!-- GitHub Stats Section -->
 <div align="center">
-  <h3>Pranav's GitHub Stats</h3>
-  
-  <!-- GitHub Stats and Language Cards in a row -->
+  <h1>Pranav's GitHub Stats</h1>
+</div>
+
+<!-- GitHub Stats and Language Cards in a row -->
+<div align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=PranavU-Coder&show_icons=true&theme=radical&title_color=ff3068" height="170" />
   <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=PranavU-Coder&layout=compact&theme=radical&title_color=ff3068" height="170" />
-  
+</div>
+
+<div align="center">
+  <h2>⭐ Total Stars Earned: 2</h2>
+  <h2>🔄 Total Commits (2023): 41</h2>
+  <h2>🔱 Total PRs: 0</h2>
+  <h2>🚩 Total Issues: 0</h2>
+  <h2>📄 Contributed to (last year): 0</h2>
+</div>
 
 ## TechStack
-  <!-- Language Badges -->
-  <div>
-    <img src="https://img.shields.io/badge/PYTHON-8A2BE2?style=for-the-badge&logo=python&logoColor=white" />
-    <img src="https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white" />
-    <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" />
-    <img src="https://img.shields.io/badge/NODE.JS-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />
-  </div>
+<!-- Language Badges -->
+<div>
+  <img src="https://img.shields.io/badge/PYTHON-8A2BE2?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white" />
+  <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" />
+  <img src="https://img.shields.io/badge/NODE.JS-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />
 </div>
