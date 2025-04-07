@@ -7,9 +7,7 @@
 * 😄 Pronouns: him
 * ⚡ Fun fact: The more I learn , the more I realize I don't know jackshit
 
-<p align="center">
-  [![spotify-github-profile](https://spotify-github-profile.kittinanx.com/api/view?uid=mqjed7g2siu9wjiduwm2iw8do&cover_image=true&theme=default&show_offline=false&background_color=613583&interchange=true)](https://github.com/kittinan/spotify-github-profile)
-</p>
+[![spotify-github-profile](https://spotify-github-profile.kittinanx.com/api/view?uid=mqjed7g2siu9wjiduwm2iw8do&cover_image=true&theme=default&show_offline=false&background_color=613583&interchange=true)](https://github.com/kittinan/spotify-github-profile)
 
 <!-- Profile Banner with Logo -->
 [![An image of @pranavucoder's Holopin badges, which is a link to view their full Holopin profile](https://holopin.me/pranavucoder)](https://holopin.io/@pranavucoder)
