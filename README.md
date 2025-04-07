@@ -8,7 +8,7 @@
 * ⚡ Fun fact: The more I learn , the more I realize I don't know jackshit
 
 <p align="center">
-  <img src="https://spotify-recently-played-readme.vercel.app/api?user=majed7g2siu9wjiduwm2iw8do" alt="Spotify recently played">
+  [![spotify-github-profile](https://spotify-github-profile.kittinanx.com/api/view?uid=mqjed7g2siu9wjiduwm2iw8do&cover_image=true&theme=default&show_offline=false&background_color=613583&interchange=true)](https://github.com/kittinan/spotify-github-profile)
 </p>
 
 <!-- Profile Banner with Logo -->
@@ -27,13 +27,6 @@
   <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=PranavU-Coder&layout=compact&theme=radical&title_color=ff3068" height="170" />
 </div>
 
-<div align="center">
-  <h2>⭐ Total Stars Earned: 2</h2>
-  <h2>🔄 Total Commits (2023): 41</h2>
-  <h2>🔱 Total PRs: 0</h2>
-  <h2>🚩 Total Issues: 0</h2>
-  <h2>📄 Contributed to (last year): 0</h2>
-</div>
 
 ## TechStack
 <!-- Language Badges -->
