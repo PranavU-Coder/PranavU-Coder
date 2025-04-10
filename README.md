@@ -1,4 +1,3 @@
-![Image](https://github.com/user-attachments/assets/45caf9d1-oa27-47b3-b0d5-6580e3fa20d4)<!-- Introduction Section -->
 * 👋 Hi, I'm Pranav Unni
 * 👀 I'm interested in Programming
 * 🌱 I'm currently learning python (mostly)
