@@ -33,3 +33,6 @@
   <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" />
   <img src="https://img.shields.io/badge/NODE.JS-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />
 </div>
+
+![Snake animation](https://github.com/PranavU-Coder/PranavU-Coder/blob/output/github-contribution-grid-snake.svg)
+
