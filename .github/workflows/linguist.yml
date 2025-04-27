@@ -14,41 +14,47 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
 
-      - name: Install LinguistJS
-        run: npm install -g linguist-js
-      
-      - name: Generate Language Stats
+      - name: Get language statistics from GitHub API
+        id: github-api
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
         run: |
-          echo "Running linguist analysis..."
-          linguist --analyze ./ --json > stats.json
-          cat stats.json | jq '.languages.results'
-      
-      - name: Create Language Table
-        run: |
-          # Define our own round function since some jq versions don't have it
-          echo "LANGUAGE_TABLE<<EOF" >> $GITHUB_ENV
-          echo "| Language | Files | Size |" >> $GITHUB_ENV
-          echo "| -------- | ----- | ---- |" >> $GITHUB_ENV
-          cat stats.json | jq -r '.languages.results | to_entries | sort_by(-.value.count) | .[] | "| \(.key) | \(.value.count) | \(.value.bytes/1024 * 100 | floor | ./100)KB |"' >> $GITHUB_ENV
+          echo "Fetching language statistics directly from GitHub API..."
+          curl -s -H "Authorization: token $GH_TOKEN" \
+               "https://api.github.com/repos/$REPO/languages" > languages.json
+          
+          echo "table<<EOF" >> $GITHUB_ENV
+          echo "| Language | Size |" >> $GITHUB_ENV
+          echo "| -------- | ---- |" >> $GITHUB_ENV
+          
+          grep -o '"[^"]*":[0-9]*' languages.json | \
+            sed 's/"//g; s/:/|/g' | \
+            awk -F'|' '{printf "| %s | %.1fKB |\n", $1, $2/1024}' | \
+            sort -r -k3 -n >> $GITHUB_ENV
+          
+          if ! grep -q "|" languages.json; then
+            echo "| No language data available | - |" >> $GITHUB_ENV
+          fi
+          
           echo "EOF" >> $GITHUB_ENV
-      
+
       - name: Update README
         run: |
-          echo "Current README content:"
-          grep -A 1 "LANGUAGES_START" README.md
+          if [ ! -f README.md ]; then
+            echo "# ${{ github.repository }}" > README.md
+          fi
           
-          perl -i -0pe 's/<!-- LANGUAGES_START -->.*?<!-- LANGUAGES_END -->/<!-- LANGUAGES_START -->\n$ENV{LANGUAGE_TABLE}\n<!-- LANGUAGE_END -->/s' README.md
+          if ! grep -q "<!-- LANGUAGES_START -->" README.md; then
+            echo -e "\n## Language Statistics\n\n<!-- LANGUAGES_START -->\n<!-- LANGUAGES_END -->\n" >> README.md
+          fi
           
-          echo "Updated README content:"
-          grep -A 5 "LANGUAGES_START" README.md
-      
-      - name: Commit Changes
+          sed -i -e '/<!-- LANGUAGES_START -->/,/<!-- LANGUAGES_END -->/c\<!-- LANGUAGES_START -->\n'"$LANGUAGE_TABLE"'\n<!-- LANGUAGES_END -->' README.md
+          
+          echo "Updated README with language statistics"
+
+      - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: 'docs: Update language statistics'
