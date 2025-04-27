@@ -1,12 +1,13 @@
 name: Update Language Stats
 on:
   push:
-    branches: [ main ]  
+    branches: [ main ] 
   workflow_dispatch:    
-
 jobs:
   linguist-update:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -21,20 +22,34 @@ jobs:
 
     - name: Generate Language Stats
       run: |
-        npx linguist-js --json --listFiles > stats.json
-        echo "LANGUAGE_STATS=$(jq -c '.languages.results' < stats.json)" >> $GITHUB_ENV
+        npx linguist-js --json > stats.json
+        # Create a formatted markdown table from the language stats
+        echo "LANGUAGE_TABLE<<EOF" >> $GITHUB_ENV
+        echo "| Language | Files | Size |" >> $GITHUB_ENV
+        echo "| -------- | ----- | ---- |" >> $GITHUB_ENV
+        node -e "const data = require('./stats.json').languages.results; 
+          Object.entries(data)
+            .sort(([,a], [,b]) => b.count - a.count)
+            .forEach(([lang, stats]) => {
+              console.log(\`| \${lang} | \${stats.count} | \${(stats.bytes/1024).toFixed(1)}KB |\`);
+            });" >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
 
     - name: Update README
       run: |
-        sed -i "/<!-- LANGUAGES_START -->/,/<!-- LANGUAGES_END -->/c\\
-        <!-- LANGUAGES_START -->\\
-        $(node -e "const data = JSON.parse(process.env.LANGUAGE_STATS); \
-        console.log(Object.entries(data) \
-          .map(([lang, stats]) => \`| \${lang} | \${stats.count} | \${(stats.bytes/1024).toFixed(1)}KB |\`) \
-          .join('\\n'));") \\
-        <!-- LANGUAGES_END -->" README.md
+        # Print current README content for debugging
+        echo "Current README content before update:"
+        cat README.md
+        
+        # Replace content between markers with the language table
+        perl -i -0pe 's/<!-- LANGUAGES_START -->.*?<!-- LANGUAGES_END -->/<!-- LANGUAGES_START -->\n${{ env.LANGUAGE_TABLE }}\n<!-- LANGUAGES_END -->/s' README.md
+        
+        # Print updated README content for verification
+        echo "Updated README content:"
+        cat README.md
 
     - name: Commit Changes
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: 'docs: Update language statistics'
+        file_pattern: 'README.md'
