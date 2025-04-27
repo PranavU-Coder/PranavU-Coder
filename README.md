@@ -24,6 +24,8 @@
 </div>
 
 <!-- LANGUAGES_START -->
+| Language | Files | Size |
+| -------- | ----- | ---- |
 
 <!-- LANGUAGES_END -->
 
