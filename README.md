@@ -24,7 +24,7 @@
 </div>
 
 <!-- LANGUAGES_START -->
-${languageData}
+ 
 <!-- LANGUAGES_END -->
 
 
