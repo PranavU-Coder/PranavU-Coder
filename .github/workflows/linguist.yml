@@ -5,54 +5,55 @@ on:
   workflow_dispatch:
 
 jobs:
-  linguist-update:
+  update-language-stats:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
+      - name: Install LinguistJS
+        run: npm install -g linguist-js
+      
+      - name: Generate Language Stats
+        run: |
+          echo "Running linguist analysis..."
+          linguist --analyze ./ --json > stats.json
+          echo "Stats file created:"
+          ls -la stats.json
+      
+      - name: Create Language Table
+        run: |
+          echo "LANGUAGE_TABLE<<EOF" >> $GITHUB_ENV
+          echo "| Language | Files | Size |" >> $GITHUB_ENV
+          echo "| -------- | ----- | ---- |" >> $GITHUB_ENV
+          cat stats.json | jq -r '.languages.results | to_entries | sort_by(-.value.count) | .[] | "| \(.key) | \(.value.count) | \(.value.bytes/1024|round(1))KB |"' >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+      
+      - name: Update README
+        run: |
+          if grep -q "<!-- LANGUAGES_START -->" README.md && grep -q "<!-- LANGUAGES_END -->" README.md; then
+            perl -i -0pe 's/<!-- LANGUAGES_START -->.*?<!-- LANGUAGES_END -->/<!-- LANGUAGES_START -->\n$ENV{LANGUAGE_TABLE}\n<!-- LANGUAGES_END -->/s' README.md
+            echo "README.md updated successfully!"
+          else
+            echo "Error: README.md missing required markers. Please add:"
+            echo "<!-- LANGUAGES_START -->"
+            echo "<!-- LANGUAGES_END -->"
+            exit 1
+          fi
+      
+      - name: Commit Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'docs: Update language statistics'
+          file_pattern: 'README.md'
 
-    - name: Install LinguistJS
-      run: npm install linguist-js
-
-    - name: Generate Language Stats
-      run: |
-        npx linguist-js --analyze ./ --json > stats.json
-        LANGUAGE_TABLE=$(node -e "
-          try {
-            const data = require('./stats.json').languages.results;
-            let table = '| Language | Files | Size |\\n| -------- | ----- | ---- |\\n';
-            Object.entries(data)
-              .sort(([,a], [,b]) => b.count - a.count)
-              .forEach(([lang, stats]) => {
-                table += `| ${lang} | ${stats.count} | ${(stats.bytes/1024).toFixed(1)}KB |\\n`;
-              });
-            console.log(table);
-          } catch (e) {
-            console.error('Error generating table:', e);
-            process.exit(1);
-          }
-        ")
-        echo "LANGUAGE_TABLE<<EOF" >> $GITHUB_ENV
-        echo "$LANGUAGE_TABLE" >> $GITHUB_ENV
-        echo "EOF" >> $GITHUB_ENV
-
-    - name: Update README
-      run: |
-        perl -i -0pe 's/<!-- LANGUAGES_START -->.*?<!-- LANGUAGES_END -->/<!-- LANGUAGES_START -->\n$ENV{LANGUAGE_TABLE}\n<!-- LANGUAGES_END -->/s' README.md
-        
-        echo "Updated README content:"
-        cat README.md
-
-    - name: Commit Changes
-      uses: stefanzweifel/git-auto-commit-action@v5
-      with:
-        commit_message: 'docs: Update language statistics'
-        file_pattern: 'README.md'
 
