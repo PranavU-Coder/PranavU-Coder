@@ -19,27 +19,48 @@ jobs:
           REPO="${GITHUB_REPOSITORY}"
           curl -s "https://api.github.com/repos/${REPO}/languages" > languages.json
           
-          # Create formatted table
-          echo "LANGUAGE_TABLE<<EOF" >> $GITHUB_ENV
-          echo "| Language | Size |" >> $GITHUB_ENV
-          echo "| -------- | ---- |" >> $GITHUB_ENV
-          jq -r 'to_entries | sort_by(-.value) | .[] | "| \(.key) | \(.value/1024 | round)KB |"' languages.json >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          # Create temporary file with table contents
+          echo "| Language | Size |" > table.md
+          echo "| -------- | ---- |" >> table.md
+          jq -r 'to_entries | sort_by(-.value) | .[] | "| \(.key) | \(.value/1024 | floor)KB |"' languages.json >> table.md
+          
+          if [ ! -s table.md ]; then
+            echo "| No languages detected | - |" >> table.md
+          fi
 
       - name: Update README
         run: |
-          # Verify markers exist
-          if grep -q "<!-- LANGUAGES_START -->" README.md && grep -q "<!-- LANGUAGES_END -->" README.md; then
-            sed -i '/<!-- LANGUAGES_START -->/,/<!-- LANGUAGES_END -->/c\<!-- LANGUAGES_START -->\n'"$LANGUAGE_TABLE"'\n<!-- LANGUAGES_END -->' README.md
-            echo "README.md updated successfully"
-          else
-            echo "Warning: Markers not found in README.md"
-            echo "LANGUAGE_TABLE:"
-            echo "$LANGUAGE_TABLE"
-          fi
+          # Create new README with updated content
+          awk '
+          BEGIN {printedMarker=0; foundStart=0;}
+          /<!-- LANGUAGES_START -->/ {
+            print $0;
+            system("cat table.md");
+            foundStart=1;
+            printedMarker=1;
+            next;
+          }
+          /<!-- LANGUAGES_END -->/ {
+            if (foundStart) {
+              print $0;
+              printedMarker=0;
+              foundStart=0;
+            } else {
+              print $0;
+            }
+            next;
+          }
+          foundStart==0 {print $0}
+          ' README.md > README.new
+          
+          mv README.new README.md
+          
+          echo "Updated README content:"
+          cat README.md
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: 'docs: Update language stats'
           file_pattern: README.md
           push_options: '--force'
+
