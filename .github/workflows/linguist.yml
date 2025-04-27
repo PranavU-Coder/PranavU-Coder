@@ -5,58 +5,35 @@ on:
   workflow_dispatch:
 
 jobs:
-  update-language-stats:
+  update-stats:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0  # Get full history
 
-      - name: Get language statistics from GitHub API
-        id: github-api
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO: ${{ github.repository }}
+      - name: Install LinguistJS
+        run: npm install -g linguist-js
+
+      - name: Generate Stats
         run: |
-          echo "Fetching language statistics directly from GitHub API..."
-          curl -s -H "Authorization: token $GH_TOKEN" \
-               "https://api.github.com/repos/$REPO/languages" > languages.json
-          
-          echo "table<<EOF" >> $GITHUB_ENV
-          echo "| Language | Size |" >> $GITHUB_ENV
-          echo "| -------- | ---- |" >> $GITHUB_ENV
-          
-          grep -o '"[^"]*":[0-9]*' languages.json | \
-            sed 's/"//g; s/:/|/g' | \
-            awk -F'|' '{printf "| %s | %.1fKB |\n", $1, $2/1024}' | \
-            sort -r -k3 -n >> $GITHUB_ENV
-          
-          if ! grep -q "|" languages.json; then
-            echo "| No language data available | - |" >> $GITHUB_ENV
-          fi
-          
-          echo "EOF" >> $GITHUB_ENV
+          linguist --analyze ./ --json > stats.json
+          echo "LANGUAGE_TABLE=$(jq -r '.languages.results | to_entries[] | "| \(.key) | \(.value.count) | \(.value.bytes/1024 | round)KB |"' stats.json)" >> $GITHUB_ENV
 
       - name: Update README
         run: |
-          if [ ! -f README.md ]; then
-            echo "# ${{ github.repository }}" > README.md
-          fi
-          
-          if ! grep -q "<!-- LANGUAGES_START -->" README.md; then
-            echo -e "\n## Language Statistics\n\n<!-- LANGUAGES_START -->\n<!-- LANGUAGES_END -->\n" >> README.md
-          fi
-          
-          sed -i -e '/<!-- LANGUAGES_START -->/,/<!-- LANGUAGES_END -->/c\<!-- LANGUAGES_START -->\n'"$LANGUAGE_TABLE"'\n<!-- LANGUAGES_END -->' README.md
-          
-          echo "Updated README with language statistics"
+          sed -i '/<!-- LANGUAGES_START -->/,/<!-- LANGUAGES_END -->/c\
+          <!-- LANGUAGES_START -->\
+          | Language | Files | Size |\
+          | -------- | ----- | ---- |\
+          ${{ env.LANGUAGE_TABLE }}\
+          <!-- LANGUAGES_END -->' README.md
 
-      - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: 'docs: Update language statistics'
-          file_pattern: 'README.md'
-
+          commit_message: 'docs: Update language stats'
+          file_pattern: README.md
+          push_options: '--force'  # Force push to handle history divergence
+          skip_fetch: true  # Prevent redundant fetch
