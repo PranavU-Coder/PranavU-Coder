@@ -21,8 +21,11 @@
 <!-- GitHub Stats and Language Cards in a row -->
 <div align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=PranavU-Coder&show_icons=true&theme=radical&title_color=ff3068" height="170" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=PranavU-Coder&layout=compact&theme=radical&title_color=ff3068" height="170" />
 </div>
+
+<!-- LANGUAGES_START -->
+${languageData}
+<!-- LANGUAGES_END -->
 
 
 ## TechStack
