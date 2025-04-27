@@ -12,28 +12,34 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Get full history
+          fetch-depth: 0
 
-      - name: Install LinguistJS
-        run: npm install -g linguist-js
-
-      - name: Generate Stats
+      - name: Get language statistics from GitHub API
         run: |
-          linguist --analyze ./ --json > stats.json
-          echo "LANGUAGE_TABLE=$(jq -r '.languages.results | to_entries[] | "| \(.key) | \(.value.count) | \(.value.bytes/1024 | round)KB |"' stats.json)" >> $GITHUB_ENV
+          REPO="${GITHUB_REPOSITORY}"
+          curl -s "https://api.github.com/repos/${REPO}/languages" > languages.json
+          
+          # Create formatted table
+          echo "LANGUAGE_TABLE<<EOF" >> $GITHUB_ENV
+          echo "| Language | Size |" >> $GITHUB_ENV
+          echo "| -------- | ---- |" >> $GITHUB_ENV
+          jq -r 'to_entries | sort_by(-.value) | .[] | "| \(.key) | \(.value/1024 | round)KB |"' languages.json >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       - name: Update README
         run: |
-          sed -i '/<!-- LANGUAGES_START -->/,/<!-- LANGUAGES_END -->/c\
-          <!-- LANGUAGES_START -->\
-          | Language | Files | Size |\
-          | -------- | ----- | ---- |\
-          ${{ env.LANGUAGE_TABLE }}\
-          <!-- LANGUAGES_END -->' README.md
+          # Verify markers exist
+          if grep -q "<!-- LANGUAGES_START -->" README.md && grep -q "<!-- LANGUAGES_END -->" README.md; then
+            sed -i '/<!-- LANGUAGES_START -->/,/<!-- LANGUAGES_END -->/c\<!-- LANGUAGES_START -->\n'"$LANGUAGE_TABLE"'\n<!-- LANGUAGES_END -->' README.md
+            echo "README.md updated successfully"
+          else
+            echo "Warning: Markers not found in README.md"
+            echo "LANGUAGE_TABLE:"
+            echo "$LANGUAGE_TABLE"
+          fi
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: 'docs: Update language stats'
           file_pattern: README.md
-          push_options: '--force'  # Force push to handle history divergence
-          skip_fetch: true  # Prevent redundant fetch
+          push_options: '--force'
