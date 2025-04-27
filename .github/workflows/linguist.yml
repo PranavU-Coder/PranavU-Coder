@@ -1,0 +1,37 @@
+name: Update Language Stats
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * 0' 
+
+jobs:
+  linguist-update:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Install LinguistJS
+      run: npm install linguist-js
+
+    - name: Generate Language Stats
+      run: |
+        npx linguist-js --json --listFiles > stats.json
+        echo "LANGUAGE_STATS=$(jq -c .languages < stats.json)" >> $GITHUB_ENV
+
+    - name: Update README
+      run: |
+        sed -i "/<!-- LANGUAGES_START -->/,/<!-- LANGUAGES_END -->/c\\
+        <!-- LANGUAGES_START -->\\
+        $(node -p "JSON.parse(process.env.LANGUAGE_STATS).results") \\
+        <!-- LANGUAGES_END -->" README.md
+
+    - name: Commit Changes
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: 'docs: Update language statistics'
