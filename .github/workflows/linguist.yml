@@ -1,8 +1,9 @@
 name: Update Language Stats
 on:
   push:
-    branches: [ main ] 
-  workflow_dispatch:    
+    branches: [ main ]
+  workflow_dispatch:
+
 jobs:
   linguist-update:
     runs-on: ubuntu-latest
@@ -11,7 +12,7 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-      
+
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
@@ -22,29 +23,30 @@ jobs:
 
     - name: Generate Language Stats
       run: |
-        npx linguist-js --json > stats.json
-        # Create a formatted markdown table from the language stats
+        npx linguist-js --analyze ./ --json > stats.json
+        LANGUAGE_TABLE=$(node -e "
+          try {
+            const data = require('./stats.json').languages.results;
+            let table = '| Language | Files | Size |\\n| -------- | ----- | ---- |\\n';
+            Object.entries(data)
+              .sort(([,a], [,b]) => b.count - a.count)
+              .forEach(([lang, stats]) => {
+                table += `| ${lang} | ${stats.count} | ${(stats.bytes/1024).toFixed(1)}KB |\\n`;
+              });
+            console.log(table);
+          } catch (e) {
+            console.error('Error generating table:', e);
+            process.exit(1);
+          }
+        ")
         echo "LANGUAGE_TABLE<<EOF" >> $GITHUB_ENV
-        echo "| Language | Files | Size |" >> $GITHUB_ENV
-        echo "| -------- | ----- | ---- |" >> $GITHUB_ENV
-        node -e "const data = require('./stats.json').languages.results; 
-          Object.entries(data)
-            .sort(([,a], [,b]) => b.count - a.count)
-            .forEach(([lang, stats]) => {
-              console.log(\`| \${lang} | \${stats.count} | \${(stats.bytes/1024).toFixed(1)}KB |\`);
-            });" >> $GITHUB_ENV
+        echo "$LANGUAGE_TABLE" >> $GITHUB_ENV
         echo "EOF" >> $GITHUB_ENV
 
     - name: Update README
       run: |
-        # Print current README content for debugging
-        echo "Current README content before update:"
-        cat README.md
+        perl -i -0pe 's/<!-- LANGUAGES_START -->.*?<!-- LANGUAGES_END -->/<!-- LANGUAGES_START -->\n$ENV{LANGUAGE_TABLE}\n<!-- LANGUAGES_END -->/s' README.md
         
-        # Replace content between markers with the language table
-        perl -i -0pe 's/<!-- LANGUAGES_START -->.*?<!-- LANGUAGES_END -->/<!-- LANGUAGES_START -->\n${{ env.LANGUAGE_TABLE }}\n<!-- LANGUAGES_END -->/s' README.md
-        
-        # Print updated README content for verification
         echo "Updated README content:"
         cat README.md
 
@@ -53,3 +55,4 @@ jobs:
       with:
         commit_message: 'docs: Update language statistics'
         file_pattern: 'README.md'
+
