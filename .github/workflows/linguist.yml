@@ -1,15 +1,15 @@
 name: Update Language Stats
 on:
   push:
-    branches: [ main ]
-  schedule:
-    - cron: '0 0 * * 0' 
+    branches: [ main ]  
+  workflow_dispatch:    
 
 jobs:
   linguist-update:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
       
     - name: Setup Node.js
       uses: actions/setup-node@v3
@@ -22,13 +22,16 @@ jobs:
     - name: Generate Language Stats
       run: |
         npx linguist-js --json --listFiles > stats.json
-        echo "LANGUAGE_STATS=$(jq -c .languages < stats.json)" >> $GITHUB_ENV
+        echo "LANGUAGE_STATS=$(jq -c '.languages.results' < stats.json)" >> $GITHUB_ENV
 
     - name: Update README
       run: |
         sed -i "/<!-- LANGUAGES_START -->/,/<!-- LANGUAGES_END -->/c\\
         <!-- LANGUAGES_START -->\\
-        $(node -p "JSON.parse(process.env.LANGUAGE_STATS).results") \\
+        $(node -e "const data = JSON.parse(process.env.LANGUAGE_STATS); \
+        console.log(Object.entries(data) \
+          .map(([lang, stats]) => \`| \${lang} | \${stats.count} | \${(stats.bytes/1024).toFixed(1)}KB |\`) \
+          .join('\\n'));") \\
         <!-- LANGUAGES_END -->" README.md
 
     - name: Commit Changes
