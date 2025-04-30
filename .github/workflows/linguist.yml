@@ -13,54 +13,99 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
+          
       - name: Get language statistics from GitHub API
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           REPO="${GITHUB_REPOSITORY}"
-          curl -s "https://api.github.com/repos/${REPO}/languages" > languages.json
+          curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${REPO}/languages" > languages.json
           
-          # Create temporary file with table contents
+          # Process language data
           echo "| Language | Size |" > table.md
           echo "| -------- | ---- |" >> table.md
           jq -r 'to_entries | sort_by(-.value) | .[] | "| \(.key) | \(.value/1024 | floor)KB |"' languages.json >> table.md
           
-          if [ ! -s table.md ]; then
+          if [ ! -s languages.json ] || [ "$(jq 'length' languages.json)" -eq 0 ]; then
             echo "| No languages detected | - |" >> table.md
           fi
-
+          
+          # Output for debugging
+          echo "Languages detected:"
+          cat languages.json
+          echo "Table content:"
+          cat table.md
+      
+      - name: Check if README exists
+        id: check_readme
+        run: |
+          if [ -f "README.md" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Create README if it doesn't exist
+        if: steps.check_readme.outputs.exists == 'false'
+        run: |
+          echo "# ${{ github.repository }}" > README.md
+          echo "" >> README.md
+          echo "## Languages" >> README.md
+          echo "<!-- LANGUAGES_START -->" >> README.md
+          echo "<!-- LANGUAGES_END -->" >> README.md
+      
       - name: Update README
         run: |
+          # Check if markers exist, if not add them
+          if ! grep -q "<!-- LANGUAGES_START -->" README.md; then
+            echo "" >> README.md
+            echo "## Languages" >> README.md
+            echo "<!-- LANGUAGES_START -->" >> README.md
+            echo "<!-- LANGUAGES_END -->" >> README.md
+          fi
+          
           # Create new README with updated content
           awk '
-          BEGIN {printedMarker=0; foundStart=0;}
+          BEGIN {printedTable=0; inLanguagesSection=0;}
           /<!-- LANGUAGES_START -->/ {
             print $0;
             system("cat table.md");
-            foundStart=1;
-            printedMarker=1;
+            inLanguagesSection=1;
+            printedTable=1;
             next;
           }
           /<!-- LANGUAGES_END -->/ {
-            if (foundStart) {
+            if (inLanguagesSection) {
               print $0;
-              printedMarker=0;
-              foundStart=0;
+              inLanguagesSection=0;
             } else {
               print $0;
             }
             next;
           }
-          foundStart==0 {print $0}
+          inLanguagesSection==0 {print $0}
           ' README.md > README.new
           
-          mv README.new README.md
+          # Ensure the file was created properly
+          if [ -s README.new ]; then
+            mv README.new README.md
+          else
+            echo "Error: Failed to create README.new"
+            exit 1
+          fi
           
           echo "Updated README content:"
           cat README.md
-
+      
+      - name: Update stats.json
+        run: |
+          # Create a more comprehensive stats file
+          jq -n --arg timestamp "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
+            --argjson languages "$(cat languages.json)" \
+            '{"updated_at": $timestamp, "languages": $languages}' > stats.json
+      
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: 'docs: Update language stats'
-          file_pattern: README.md
+          file_pattern: 'README.md stats.json'
           push_options: '--force'
-
