@@ -26,7 +26,7 @@
 <!-- LANGUAGES_START -->
 | Language | Size |
 | -------- | ---- |
-| JavaScript | 6KB |
+| JavaScript | 9KB |
 <!-- LANGUAGES_END -->
 
 
