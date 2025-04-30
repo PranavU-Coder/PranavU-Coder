@@ -1,10 +1,11 @@
 name: Update All GitHub Stats
 on:
   push:
-    branches: [ main ]
-  schedule:
-    - cron: '0 0 * * 0'  # Run weekly on Sunday at midnight
-  workflow_dispatch:
+    paths-ignore:
+      - 'README.md'  # Workflow skips if only README.md is modified
+  pull_request:
+    paths-ignore:
+      - 'README.md'  # Optional for PRs
 
 jobs:
   update-stats:
@@ -27,8 +28,6 @@ jobs:
       - name: Run GitHub stats dashboard script
         env:
           GITHUB_USERNAME: ${{ github.repository_owner }}
-          # Using a personal access token for higher rate limits and access to all repos
-          # Create this token in your GitHub settings and add as a repository secret
           GITHUB_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
         run: node scripts/dashboard.js
         
@@ -43,4 +42,5 @@ jobs:
         with:
           commit_message: 'docs: Update GitHub stats across all repositories'
           file_pattern: 'README.md stats.json'
-          push_options: '--force'
+          push_options: '--force' 
+
