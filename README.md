@@ -1,11 +1,8 @@
-* 👋 Hi, I'm Pranav Unni
-* 👀 I'm interested in Programming
-* 🌱 I'm currently learning python (mostly)
-* 💞️ I'm looking to collaborate on Discord/Reddit or bsky.social if you're there
-* 📩 How to reach me : reddit handle -> https://www.reddit.com/user/CrazySteroids69/ , discord handle -> 1063397323473961032 (discord id) , name - crazy_steroids69 , bsky : https://bsky.app/profile/king-pranav.bsky.social
-* 😄 Pronouns: him
-* ⚡ Fun fact: The more I learn , the more I realize I don't know jackshit
-.....
+Pranav here 👋
+Interested in robotics , machine learning and other such fields
+my kaggle handle : https://www.kaggle.com/pranavunni
+wanting to learn rust
+
 ![Spotify recently played](https://spotify-recently-played-readme.vercel.app/api?user=mqjed7g2siu9wjiduwm2iw8do&count=1)
 
 <!-- Profile Banner with Logo -->
@@ -23,21 +20,14 @@
   <img src="https://github-readme-stats.vercel.app/api?username=PranavU-Coder&show_icons=true&theme=radical&title_color=ff3068" height="170" />
 </div>
 
-<!-- LANGUAGES_START -->
-| Language | Size |
-| -------- | ---- |
-| JavaScript | 9KB |
-<!-- LANGUAGES_END -->
-
 
 
 ## TechStack
-<!-- Language Badges -->
-<div>
-  <img src="https://img.shields.io/badge/PYTHON-8A2BE2?style=for-the-badge&logo=python&logoColor=white" />
-  <img src="https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white" />
-  <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" />
-  <img src="https://img.shields.io/badge/NODE.JS-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />
-</div>
+
+<p align="center">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=python,pycharm,nodejs,c,cpp,linux" />
+  </a>
+</p>
 
 ![Snake animation](https://github.com/PranavU-Coder/PranavU-Coder/blob/output/github-contribution-grid-snake-dark.svg)
