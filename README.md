@@ -26,6 +26,7 @@
 <!-- LANGUAGES_START -->
 | Language | Size |
 | -------- | ---- |
+| No languages detected | - |
 <!-- LANGUAGES_END -->
 
 
