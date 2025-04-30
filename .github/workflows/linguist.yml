@@ -1,11 +1,15 @@
 name: Update All GitHub Stats
 on:
-  push:
-    paths-ignore:
-      - 'README.md'  # Workflow skips if only README.md is modified
-  pull_request:
-    paths-ignore:
-      - 'README.md'  # Optional for PRs
+  # Commenting out automatic triggers
+  # push:
+  #   paths-ignore:
+  #     - 'README.md'
+  # pull_request:
+  #   paths-ignore:
+  #     - 'README.md'
+  
+  # Only run manually using the GitHub Actions UI
+  workflow_dispatch:
 
 jobs:
   update-stats:
@@ -42,5 +46,4 @@ jobs:
         with:
           commit_message: 'docs: Update GitHub stats across all repositories'
           file_pattern: 'README.md stats.json'
-          push_options: '--force' 
-
+          push_options: '--force'
