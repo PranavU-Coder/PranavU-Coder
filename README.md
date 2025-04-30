@@ -5,7 +5,7 @@
 * 📩 How to reach me : reddit handle -> https://www.reddit.com/user/CrazySteroids69/ , discord handle -> 1063397323473961032 (discord id) , name - crazy_steroids69 , bsky : https://bsky.app/profile/king-pranav.bsky.social
 * 😄 Pronouns: him
 * ⚡ Fun fact: The more I learn , the more I realize I don't know jackshit
-
+.....
 ![Spotify recently played](https://spotify-recently-played-readme.vercel.app/api?user=mqjed7g2siu9wjiduwm2iw8do&count=1)
 
 <!-- Profile Banner with Logo -->
