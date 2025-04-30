@@ -1,7 +1,7 @@
-Pranav here 👋
-Interested in robotics , machine learning and other such fields
-my kaggle handle : https://www.kaggle.com/pranavunni
-wanting to learn rust
+- Pranav here 👋
+- Interested in robotics , machine learning and other such fields
+- my kaggle handle : https://www.kaggle.com/pranavunni
+- wanting to learn rust
 
 ![Spotify recently played](https://spotify-recently-played-readme.vercel.app/api?user=mqjed7g2siu9wjiduwm2iw8do&count=1)
 
