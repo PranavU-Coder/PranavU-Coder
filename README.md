@@ -28,21 +28,4 @@
 
 
 
-## TechStack
-
-<p align="center">
-
-
-  <a href="https://skillicons.dev">
-
-
-    <img src="https://skillicons.dev/icons?i=python,pycharm,nodejs,c,cpp,java,linux" />
-
-
-  </a>
-
-
-</p>
-
-
 ![Snake animation](https://github.com/PranavU-Coder/PranavU-Coder/blob/output/github-contribution-grid-snake-dark.svg)
