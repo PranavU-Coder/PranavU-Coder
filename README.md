@@ -19,7 +19,7 @@
  <h1>Pranav's GitHub Stats</h1>
 </div>
 
-<!-- GitHub Stats and Language Cards in a row -->Add commentMore actions
+<!-- GitHub Stats and Language Cards in a row -->
 
 
 <div align="center">
