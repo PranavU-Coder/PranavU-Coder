@@ -2,7 +2,7 @@
 
 - Interested in robotics , machine learning and other such fields
 - my kaggle handle : https://www.kaggle.com/pranavunni
-- wanting to learn rust
+- I use arch btw
 
 ![Spotify recently played](https://spotify-recently-played-readme.vercel.app/api?user=mqjed7g2siu9wjiduwm2iw8do&count=1)
 
@@ -14,10 +14,6 @@
 <div align="center">
 </div>
 
-<!-- GitHub Stats Section -->
-<div align="center">
- <h1>Pranav's GitHub Stats</h1>
-</div>
 
 <!-- GitHub Stats and Language Cards in a row -->
 
