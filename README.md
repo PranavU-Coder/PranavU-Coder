@@ -18,9 +18,16 @@
 <!-- GitHub Stats and Language Cards in a row -->
 
 
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=PranavU-Coder&show_icons=true&theme=radical&title_color=ff3068" height="170" />
-</div>
+</summary>
+<table>
+	<tr>
+		<td colspan = "2"><a href = "https://github.com/PranavU-Coder/"><img src="https://github-readme-activity-graph.vercel.app/graph?username=PranavU-Coder&bg_color=000000&hide_border=true&point=false&line=7fff00&radius=8&area=true&area_color=ddff99&title_color=ffffff&color=ffffff"></a></td>
+	</tr>
+	<tr>
+		<td><a href="https://github.com/PranavU-Coder/"><img src="https://github-readme-streak-stats.herokuapp.com/?user=PranavU-Coder&theme=chartreuse-dark&hide_border=false"></a></td>
+		<td><a href="https://github.com/PranavU-Coder/"><img src="http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=PranavU-Coder&theme=chartreuse_dark"></a></td>
+	</tr>
+	<tr>
 
 
 
