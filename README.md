@@ -1,8 +1,8 @@
 pranav here 👋
 
 - hobbyist programmer and ml enthusiast.
-- my kaggle handle: https://www.kaggle.com/pranavunni
-- started making games out of interest: https://pranavu.itch.io/
+- [my kaggle handle](https://www.kaggle.com/pranavunni)
+- [started making games out of interest](https://pranavu.itch.io/)
 - i prefer using cachyos
 
 ![Spotify recently played](https://spotify-recently-played-readme.vercel.app/api?user=mqjed7g2siu9wjiduwm2iw8do&count=1)
