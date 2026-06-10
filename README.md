@@ -1,9 +1,8 @@
 pranav here 👋
 
 - hobbyist programmer and ml enthusiast.
-- [my kaggle handle](https://www.kaggle.com/pranavunni)
-- [started making games out of interest](https://pranavu.itch.io/)
-- i prefer using cachyos
+- my latest work: [check out here](https://mandelsite.pages.dev/)
+- i prefer using cachyos & nvim w/nvchad-plugin sometimes
 
 ![Spotify recently played](https://spotify-recently-played-readme.vercel.app/api?user=mqjed7g2siu9wjiduwm2iw8do&count=1)
 
